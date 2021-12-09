@@ -5,6 +5,7 @@ __pycache__/
 .python-version
 .venv/
 .tmp/
+latest_logs/
 *.log
 *.zip
 *.env

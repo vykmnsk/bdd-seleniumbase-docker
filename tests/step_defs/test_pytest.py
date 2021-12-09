@@ -1,3 +1,6 @@
+from pytest_bdd import scenarios, given, when, then, parsers
+
+
 nav_signin = "//button[contains(., 'Sign in')]"
 nav_signin_popup = 'Sign in'
 
@@ -15,7 +18,19 @@ user_invalid = 'invalid@example.email'
 password_invalid = 'invalid_password'
 
 
-def test_invalid_signin(sb):
+scenarios('../features/Login.feature')
+
+
+@given("I don't have valid username and password",
+       target_fixture="user_pwd_invalid")
+def user_pwd_invalid():
+    return ('invalid1@example.email', 'invalid1_password')
+
+
+@when("I try to sign in")
+def try_sign_in(sb, user_pwd_invalid):
+    user, password = user_pwd_invalid
+
     sb.click(nav_signin)
     sb.click_link(nav_signin_popup)
     if sb.is_text_visible(text_bot_or_not):
@@ -23,12 +38,12 @@ def test_invalid_signin(sb):
         # breakpoint()
     sb.assert_text(login_header_text, login_header)
 
-    do_signin(sb, user_invalid, password_invalid)
-
-    sb.assert_element_visible(login_error_banner)
-    sb.assert_text_visible(login_error_banner_text)
-
-def do_signin(sb, user, password):
     sb.update_text(login_email_box, user)
     sb.update_text(login_password_box, password)
     sb.click(login_button)
+
+
+@then(parsers.parse('I get error "{msg}"'))
+def verify_err_message(sb):
+    sb.assert_element_visible(login_error_banner)
+    sb.assert_text_visible(login_error_banner_text)
