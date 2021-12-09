@@ -10,12 +10,9 @@ login_email_box = '#loginFormEmailInput'
 login_password_box = '#loginFormPasswordInput'
 login_button = '#loginFormSubmitButton'
 login_error_banner = '#loginFormErrorBanner'
-login_error_banner_text = "Email and password don't match. Try again."
 
 text_bot_or_not = "We can't tell if you're a human or a bot."
-prompt_human_help = 'manually verify not a robot'
-user_invalid = 'invalid@example.email'
-password_invalid = 'invalid_password'
+prompt_human_help = 'manually verify not a robot and hit <Enter>'
 
 
 scenarios('../features/Login.feature')
@@ -24,7 +21,7 @@ scenarios('../features/Login.feature')
 @given("I don't have valid username and password",
        target_fixture="user_pwd_invalid")
 def user_pwd_invalid():
-    return ('invalid1@example.email', 'invalid1_password')
+    return ('invalid@example.email', 'invalid_password')
 
 
 @when("I try to sign in")
@@ -35,7 +32,6 @@ def try_sign_in(sb, user_pwd_invalid):
     sb.click_link(nav_signin_popup)
     if sb.is_text_visible(text_bot_or_not):
         input(prompt_human_help)
-        # breakpoint()
     sb.assert_text(login_header_text, login_header)
 
     sb.update_text(login_email_box, user)
@@ -44,6 +40,7 @@ def try_sign_in(sb, user_pwd_invalid):
 
 
 @then(parsers.parse('I get error "{msg}"'))
-def verify_err_message(sb):
+def verify_err_message(sb, msg):
+    # breakpoint()
     sb.assert_element_visible(login_error_banner)
-    sb.assert_text_visible(login_error_banner_text)
+    sb.assert_text_visible(msg)

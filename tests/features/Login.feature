@@ -1,4 +1,3 @@
-@ui
 Feature: Login
 
 Scenario: Unsuccessful Login
