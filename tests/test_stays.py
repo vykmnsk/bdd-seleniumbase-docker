@@ -5,7 +5,7 @@ text_bot_or_not = "We can't tell if you're a human or a bot."
 prompt_human_help = 'manually verify not a robot and hit <Enter>'
 
 
-scenarios('../features/Stays.feature')
+scenarios('features/Stays.feature')
 
 
 @given(parsers.parse('I am on "{tab_name}" tab'))

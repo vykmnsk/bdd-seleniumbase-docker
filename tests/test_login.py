@@ -15,7 +15,7 @@ text_bot_or_not = "We can't tell if you're a human or a bot."
 prompt_human_help = 'manually verify not a robot and hit <Enter>'
 
 
-scenarios('../features/Login.feature')
+scenarios('features/Login.feature')
 
 
 @given("I don't have valid username and password",
