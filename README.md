@@ -33,7 +33,7 @@ Verify python/pip are installed:
 ### in Local Docker container
 
     > docker build . -t pytest-bdd-seleniumbase
-    > docker run pytest-bdd-seleniumbase
+    > docker run pytest-bdd-seleniumbase pytest
 
 ### on Github CI
 

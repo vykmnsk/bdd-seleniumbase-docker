@@ -1,4 +1,6 @@
 from pytest_bdd import scenarios, given, when, then, parsers
+import pytest
+from common import *
 
 
 nav_signin = "//button[contains(., 'Sign in')]"
@@ -31,7 +33,7 @@ def try_sign_in(sb, user_pwd_invalid):
     sb.click(nav_signin)
     sb.click_link(nav_signin_popup)
     if sb.is_text_visible(text_bot_or_not):
-        input(prompt_human_help)
+        pytest.fail(error_bot)
     sb.assert_text(login_header_text, login_header)
 
     sb.update_text(login_email_box, user)
@@ -41,6 +43,5 @@ def try_sign_in(sb, user_pwd_invalid):
 
 @then(parsers.parse('I get error "{msg}"'))
 def verify_err_message(sb, msg):
-    # breakpoint()
     sb.assert_element_visible(login_error_banner)
     sb.assert_text_visible(msg)
