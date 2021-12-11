@@ -19,6 +19,22 @@ Verify python/pip are installed:
 
 ## Run tests
 
-### Local machine
+### on Local machine
 
-    pytest
+#### All tests
+
+    > pytest
+    if there are errors check ./latest_logs/ for run info, page source, screenshots
+
+#### One Feature in Firefox
+
+    > pytest -k Stays --browser=firefox
+
+### in Local Docker container
+
+    > docker build . -t pytest-bdd-seleniumbase
+    > docker run pytest-bdd-seleniumbase
+
+### on Github CI
+
+    commit a change to "main" branch and navigate to this Github repo "Actions" tab
