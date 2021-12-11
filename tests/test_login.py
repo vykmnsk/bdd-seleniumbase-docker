@@ -30,12 +30,11 @@ def user_pwd_invalid():
 def try_sign_in(sb, user_pwd_invalid):
     user, password = user_pwd_invalid
 
-    sb.click(nav_signin)
-    sb.click_link(nav_signin_popup)
+    sb.open(sb.get_current_url() + '/login')
     if sb.is_text_visible(text_bot_or_not):
-        pytest.fail(error_bot)
-    sb.assert_text(login_header_text, login_header)
+        pytest.xfail(error_bot)
 
+    sb.assert_text(login_header_text, login_header)
     sb.update_text(login_email_box, user)
     sb.update_text(login_password_box, password)
     sb.click(login_button)

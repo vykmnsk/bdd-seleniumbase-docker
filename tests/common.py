@@ -14,6 +14,6 @@ def nav_to_stays(sb, tab_name):
 @then("I can see multiple listings")
 def check_results(sb):
     if sb.is_text_visible(text_bot_or_not):
-        pytest.fail(error_bot)
+        pytest.xfail(error_bot)
     listings = sb.find_elements('a.listing__link')
     assert len(listings) > 1
